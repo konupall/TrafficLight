@@ -14,8 +14,10 @@ namespace TrafficLight
     {
         bool Override = false;
         bool NightOverride = false;
+        bool DayOverride = false;
 
         private Timer timerSwitch;
+        private Timer DaySwitch;
         public TrafficLight()
         {
             InitializeComponent();
@@ -34,6 +36,13 @@ namespace TrafficLight
             ColorGrn.BackColor = Color.Gray;
         }
 
+        private void InitializeDaySwitch()
+        {
+            DaySwitch = new Timer();
+            DaySwitch.Interval = 10000;
+            DaySwitch.Tick += new EventHandler(DaySwitch_Tick);
+            DaySwitch.Start();
+        }
         private void InitializeTSwitch()
         {
             timerSwitch = new Timer();
@@ -51,6 +60,23 @@ namespace TrafficLight
             else
             {
                 ColorYlw.BackColor = Color.Gray;
+            }
+        }
+
+        private void DaySwitch_Tick(object sender, EventArgs e)
+        {
+            if (ColorRed.BackColor == Color.Gray)
+            {
+                InitializeDaySwitch();
+                ColorRed.BackColor = Color.DarkRed;
+                timerSwitch.Stop();
+                ColorYlw.BackColor = Color.Gray;
+            }
+            else
+            {
+                ColorRed.BackColor = Color.Gray;
+                ColorYlw.BackColor = Color.Gray;
+                InitializeTSwitch();
             }
         }
 
@@ -159,7 +185,17 @@ namespace TrafficLight
 
         private void DayOperator_Click(object sender, EventArgs e)
         {
-
+            if (DayOverride)
+            {
+                InitializeDaySwitch();
+                ColorRed.BackColor = Color.DarkRed;
+            }
+            else
+            {
+                timerSwitch.Stop();
+                InitializeLights();
+            }
+            DayOverride = !DayOverride;
         }
     }
 }
