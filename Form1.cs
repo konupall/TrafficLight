@@ -17,12 +17,13 @@ namespace TrafficLight
         bool DayOverride = false;
 
         private Timer timerSwitch;
-        private Timer DaySwitch;
+        private Timer GreenSwitch;
+        private Timer Greenblink;
         public TrafficLight()
         {
             InitializeComponent();
             InitializeLights();
-            InitializeTSwitch();
+            InitializeYellowSwitch();
 
             RoundedEdges(); // Starts the edge rounding stuff
 
@@ -36,26 +37,20 @@ namespace TrafficLight
             ColorGrn.BackColor = Color.Gray;
         }
 
-        private void InitializeDaySwitch()
-        {
-            DaySwitch = new Timer();
-            DaySwitch.Interval = 10000;
-            DaySwitch.Tick += new EventHandler(DaySwitch_Tick);
-            DaySwitch.Start();
-        }
-        private void InitializeTSwitch()
+        private void InitializeYellowSwitch()
         {
             timerSwitch = new Timer();
-            timerSwitch.Interval = 1000;
-            timerSwitch.Tick += new EventHandler(TimerSwitch_Tick);
+            timerSwitch.Interval = 750;
+            timerSwitch.Tick += new EventHandler(TimerYellowSwitch_Tick);
             timerSwitch.Start();
         }
 
-        private void TimerSwitch_Tick(object sender, EventArgs e)
+        private void TimerYellowSwitch_Tick(object sender, EventArgs e)
         {
-            if(ColorYlw.BackColor == Color.Gray)
+            if(ColorYlw.BackColor != Color.DarkOrange)
             {
                 ColorYlw.BackColor = Color.DarkOrange;
+                ColorRed.BackColor = Color.Gray;
             }
             else
             {
@@ -63,20 +58,48 @@ namespace TrafficLight
             }
         }
 
-        private void DaySwitch_Tick(object sender, EventArgs e)
+        private void InitializeGreenSwitch()
         {
-            if (ColorRed.BackColor == Color.Gray)
+            GreenSwitch = new Timer();
+            GreenSwitch.Interval = 5000;
+            GreenSwitch.Tick += new EventHandler(TimerGreenSwitch_Tick);
+            GreenSwitch.Start();
+        }
+
+        private void TimerGreenSwitch_Tick(object sender, EventArgs e)
+        {
+            if (ColorGrn.BackColor != Color.DarkGreen)
             {
-                InitializeDaySwitch();
-                ColorRed.BackColor = Color.DarkRed;
                 timerSwitch.Stop();
                 ColorYlw.BackColor = Color.Gray;
+                ColorGrn.BackColor = Color.DarkGreen; // GREEN
+
+            }
+            else if(ColorGrn.BackColor != Color.Gray)
+            {
+                GreenSwitch.Stop();
+                ColorGrn.BackColor = Color.Gray;
+                InitializeGreenBlinkSwitch();
+            }
+        }
+
+        private void InitializeGreenBlinkSwitch()
+        {
+            Greenblink = new Timer();
+            Greenblink.Interval = 750;
+            Greenblink.Tick += new EventHandler(TimerGreenBlinkSwitch_Tick);
+            Greenblink.Start();
+        }
+
+        private void TimerGreenBlinkSwitch_Tick(object sender, EventArgs e)
+        {
+            if (ColorGrn.BackColor != Color.DarkGreen)
+            {
+                ColorGrn.BackColor = Color.DarkGreen;
             }
             else
             {
-                ColorRed.BackColor = Color.Gray;
-                ColorYlw.BackColor = Color.Gray;
-                InitializeTSwitch();
+                ColorGrn.BackColor = Color.Gray;
             }
         }
 
@@ -187,8 +210,9 @@ namespace TrafficLight
         {
             if (DayOverride)
             {
-                InitializeDaySwitch();
                 ColorRed.BackColor = Color.DarkRed;
+                InitializeYellowSwitch();
+                InitializeGreenSwitch();
             }
             else
             {
@@ -196,6 +220,14 @@ namespace TrafficLight
                 InitializeLights();
             }
             DayOverride = !DayOverride;
+        }
+
+        private void StopAll_Click(object sender, EventArgs e)
+        {
+            timerSwitch.Stop();
+            Greenblink.Stop();
+            GreenSwitch.Stop();
+            InitializeLights();
         }
     }
 }

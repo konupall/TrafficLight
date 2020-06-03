@@ -40,6 +40,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.NightMode = new System.Windows.Forms.Button();
             this.DayOperator = new System.Windows.Forms.Button();
+            this.StopAll = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ColorRed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColorYlw)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColorGrn)).BeginInit();
@@ -141,11 +142,22 @@
             this.DayOperator.UseVisualStyleBackColor = true;
             this.DayOperator.Click += new System.EventHandler(this.DayOperator_Click);
             // 
+            // StopAll
+            // 
+            this.StopAll.Location = new System.Drawing.Point(461, 419);
+            this.StopAll.Name = "StopAll";
+            this.StopAll.Size = new System.Drawing.Size(192, 60);
+            this.StopAll.TabIndex = 10;
+            this.StopAll.Text = "EMERGENCY STOP";
+            this.StopAll.UseVisualStyleBackColor = true;
+            this.StopAll.Click += new System.EventHandler(this.StopAll_Click);
+            // 
             // TrafficLight
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(665, 491);
+            this.Controls.Add(this.StopAll);
             this.Controls.Add(this.DayOperator);
             this.Controls.Add(this.NightMode);
             this.Controls.Add(this.textBox1);
@@ -179,6 +191,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button NightMode;
         private System.Windows.Forms.Button DayOperator;
+        private System.Windows.Forms.Button StopAll;
     }
 }
 
