@@ -12,6 +12,9 @@ namespace TrafficLight
 {
     public partial class TrafficLight : Form
     {
+        bool Override = false;
+        bool NightOverride = false;
+
         private Timer timerSwitch;
         public TrafficLight()
         {
@@ -20,6 +23,8 @@ namespace TrafficLight
             InitializeTSwitch();
 
             RoundedEdges(); // Starts the edge rounding stuff
+
+            this.Size = new Size(475, 530);
         }
 
         private void InitializeLights()
@@ -77,6 +82,84 @@ namespace TrafficLight
             gp.AddArc(g.X + g.Width - e, g.Y + g.Height - e, e, e, 0, 90);
             gp.AddArc(g.X, g.Y + g.Height - e, e, e, 90, 90);
             ColorGrn.Region = new Region(gp);
+        }
+
+        private void MnlOvr_Click(object sender, EventArgs e)
+        {
+            if (Override)
+            {
+                this.Width = 681;
+            }
+            else
+            {
+                this.Width = 475;
+            }
+            Override = !Override;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (ColorRed.BackColor != Color.DarkRed)
+            {
+                ColorRed.BackColor = Color.DarkRed;
+                ColorYlw.BackColor = Color.Gray;
+                ColorGrn.BackColor = Color.Gray;
+                timerSwitch.Stop();
+            }
+            else
+            {
+                ColorRed.BackColor = Color.Gray;
+            }
+        }
+
+        private void YlwOvr_Click(object sender, EventArgs e)
+        {
+            if (ColorYlw.BackColor != Color.DarkOrange)
+            {
+                ColorRed.BackColor = Color.Gray;
+                ColorYlw.BackColor = Color.DarkOrange;
+                ColorGrn.BackColor = Color.Gray;
+                timerSwitch.Stop();
+            }
+            else
+            {
+                ColorYlw.BackColor = Color.Gray;
+            }
+        }
+
+        private void GrnOvr_Click(object sender, EventArgs e)
+        {
+            if (ColorGrn.BackColor != Color.DarkGreen)
+            {
+                ColorRed.BackColor = Color.Gray;
+                ColorYlw.BackColor = Color.Gray;
+                ColorGrn.BackColor = Color.DarkGreen;
+                timerSwitch.Stop();
+            }
+            else
+            {
+                ColorGrn.BackColor = Color.Gray;
+            }
+        }
+
+        private void NightMode_Click(object sender, EventArgs e)
+        {
+            if (NightOverride)
+            {
+                InitializeLights();
+                timerSwitch.Start();
+            }
+            else
+            {
+                timerSwitch.Stop();
+                ColorYlw.BackColor = Color.Gray;
+            }
+            NightOverride = !NightOverride;
+        }
+
+        private void DayOperator_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
