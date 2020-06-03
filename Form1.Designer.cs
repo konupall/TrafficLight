@@ -1,6 +1,6 @@
 ﻿namespace TrafficLight
 {
-    partial class Form1
+    partial class TrafficLight
     {
         /// <summary>
         /// Required designer variable.
@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.ColorRed = new System.Windows.Forms.PictureBox();
             this.ColorYlw = new System.Windows.Forms.PictureBox();
             this.ColorGrn = new System.Windows.Forms.PictureBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ColorRed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColorYlw)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColorGrn)).BeginInit();
@@ -38,7 +40,7 @@
             // 
             // ColorRed
             // 
-            this.ColorRed.Location = new System.Drawing.Point(12, 12);
+            this.ColorRed.Location = new System.Drawing.Point(141, 4);
             this.ColorRed.Name = "ColorRed";
             this.ColorRed.Size = new System.Drawing.Size(155, 155);
             this.ColorRed.TabIndex = 0;
@@ -46,7 +48,7 @@
             // 
             // ColorYlw
             // 
-            this.ColorYlw.Location = new System.Drawing.Point(12, 173);
+            this.ColorYlw.Location = new System.Drawing.Point(141, 165);
             this.ColorYlw.Name = "ColorYlw";
             this.ColorYlw.Size = new System.Drawing.Size(155, 155);
             this.ColorYlw.TabIndex = 1;
@@ -54,21 +56,21 @@
             // 
             // ColorGrn
             // 
-            this.ColorGrn.Location = new System.Drawing.Point(12, 334);
+            this.ColorGrn.Location = new System.Drawing.Point(141, 326);
             this.ColorGrn.Name = "ColorGrn";
             this.ColorGrn.Size = new System.Drawing.Size(155, 155);
             this.ColorGrn.TabIndex = 2;
             this.ColorGrn.TabStop = false;
             // 
-            // Form1
+            // TrafficLight
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(650, 500);
+            this.ClientSize = new System.Drawing.Size(434, 491);
             this.Controls.Add(this.ColorGrn);
             this.Controls.Add(this.ColorYlw);
             this.Controls.Add(this.ColorRed);
-            this.Name = "Form1";
+            this.Name = "TrafficLight";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.ColorRed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ColorYlw)).EndInit();
@@ -82,6 +84,7 @@
         private System.Windows.Forms.PictureBox ColorRed;
         private System.Windows.Forms.PictureBox ColorYlw;
         private System.Windows.Forms.PictureBox ColorGrn;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
